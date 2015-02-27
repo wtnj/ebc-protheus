@@ -51,7 +51,6 @@ Private oFntCur12B 	:= TFont():New( "Courier New" ,,12,,.T.,,,,,.F. )
 Private oFntCur15B 	:= TFont():New( "Courier New" ,,15,,.T.,,,,,.F. )
 Private oBrush     	:= TBrush():New(,RGB(230,230,230))
 Private cPerg       := Padr("EBCR001",10)
-Private cTipoNF
 Private cAlias3    	:= GetNextAlias()
 
 PRIVATE cNomeEmp    := ""                    
@@ -70,15 +69,11 @@ If !Pergunte(cPerg,.T.)
 	Return
 Endif
 
-cTipoNF := Space(2)
 cObs := ""
 
 DEFINE DIALOG oDlg TITLE "Observações / Tipo de Nota Fiscal" FROM 0,0 TO 530,560 PIXEL
 
 oMemo := tMultiGet():New( 005, 005, {|u|if(PCount()>0, cObs := u, cObs)}, oDlg, 270, 195, oArial16,,,,, .T.,,,,,, .F. )
-
-@ 210, 15 SAY "Tipo NF" SIZE 65, 8 PIXEL OF oDlg
-@ 210, 50 MSGET cTipoNF PICTURE "99" F3 "SX5X1" Valid Existcpo("SX5","X1"+cTipoNF) SIZE 30,8 PIXEL OF oDlg
 
 ACTIVATE MSDIALOG oDlg ON INIT EnchoiceBar(oDlg,{|| lConfirmou := .T.,oDlg:End()},{|| lConfirmou := .F.,oDlg:End()}) CENTERED
 
@@ -338,8 +333,6 @@ If !(cAlias)->(EOF())
 		
 		oPrn:Say(1850,1935,"VALOR",oFntCur10B,,,,0)
 		
-		oPrn:Say(1940,0100,alltrim(POSICIONE("SX5",1,xFilial("SX5")+"X1"+cTipoNF,"X5_DESCRI")),oFntCur10N,,,,0)
-		
 		cDoc := (cAlias)->F2_DOC
 		cSerie := (cAlias)->F2_SERIE
 		cCliente := (cAlias)->C5_CLIENTE
@@ -396,10 +389,10 @@ If !(cAlias)->(EOF())
 		oPrn:Box(2540, 1520, 2810, 1920)
 		oPrn:Box(2540, 1920, 2810, 2300)
 		
-		if mv_par08 = 1
+		if mv_par09 = 1
 			oPrn:Say(2630,0120,"1a VIA",oFntCur15B,,,,0)
 			oPrn:Say(2690,0130,"CLIENTE",oFntCur15B,,,,0)
-		elseif mv_par08 = 2
+		elseif mv_par09 = 2
 			oPrn:Say(2630,0120,"2a VIA",oFntCur15B,,,,0)
 			oPrn:Say(2690,0090,"CONTABILIDADE",oFntCur12B,,,,0)
 		endif
