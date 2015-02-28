@@ -284,46 +284,31 @@ If !(cAlias)->(EOF())
 		oPrn:Say(0890,1825,"Resp. pelo Pagamento:",oFntCur08N,,,,0)
 		oPrn:Say(0950,1825,"Cliente",oFntCur10N,,,,0)
 		
-		/*
-		oPrn:Box(0870, 0105, 1320, 2250)
+		oPrn:Box(0990, 0105, 1140, 2250)
+		oPrn:Say(1020,0125,"Cliente:",oFntCur10N,,,,0)
+		oPrn:Say(1080,0125,(cAlias)->A1_NOME,oFntCur10N,,,,0)
+
+		oPrn:Box(1140, 0105, 1290, 2250)
+		oPrn:Say(1170,0125,"Endereço:",oFntCur10N,,,,0)
+		oPrn:Say(1230,0125,Alltrim((cAlias)->A1_END)+"-"+Alltrim((cAlias)->A1_BAIRRO)+"-"+Alltrim((cAlias)->A1_MUN)+"-"+Alltrim((cAlias)->A1_EST),oFntCur10N,,,,0)
+
+		oPrn:Box(1290, 0105, 1440, 2250)
+		oPrn:Box(1290, 0505, 1440, 0505)
+		oPrn:Box(1290, 0905, 1440, 0905)
+		oPrn:Box(1290, 1605, 1440, 1605)
 		
-		oPrn:Say(0900,0970,"DESTINATÁRIO",oFntCur12B,,,,0)
-		
-		oPrn:Say(0960,0470,"NOME: ",oFntCur08B,,,,0)
-		oPrn:Say(0960,0730,(cAlias)->A1_NOME,oFntCur08N,,,,0)
-		
-		oPrn:Say(1020,0470,"ENDEREÇO: ",oFntCur08B,,,,0)
-		oPrn:Say(1020,0730,(cAlias)->A1_END+" "+(cAlias)->A1_BAIRRO,oFntCur08N,,,,0)
-		
-		oPrn:Say(1020,1950,"CEP: ",oFntCur08B,,,,0)
-		oPrn:Say(1020,2030,Transform((cAlias)->A1_CEP,"@R 99.999-999"),oFntCur08N,,,,0)
-		
-		oPrn:Say(1080,0470,"MUNICÍPIO: ",oFntCur08B,,,,0)
-		oPrn:Say(1080,0730,(cAlias)->A1_MUN,oFntCur08N,,,,0)
-		
-		oPrn:Say(1080,1750,"ESTADO: ",oFntCur08B,,,,0)
-		oPrn:Say(1080,1880,(cAlias)->A1_EST,oFntCur08N,,,,0)
-		
-		oPrn:Say(1140,0470,"PRAÇA DE PAGTO: ",oFntCur08B,,,,0)
-		oPrn:Say(1140,0730,(cAlias)->A1_EST,oFntCur08N,,,,0)
-		
-		oPrn:Say(1200,0470,"CNPJ: ",oFntCur08B,,,,0)
-		oPrn:Say(1200,0730,Transform((cAlias)->A1_CGC,"@R 99.999-999/9999-99"),oFntCur08N,,,,0)
-		
-		oPrn:Say(1260,0470,"INSC.ESTADUAL: ",oFntCur08B,,,,0)
-		oPrn:Say(1260,0730,(cAlias)->A1_INSCR,oFntCur08N,,,,0)
-		
-		oPrn:Say(1260,1400,"INSC.MUNICIPAL: ",oFntCur08B,,,,0)
-		oPrn:Say(1260,1670,(cAlias)->A1_INSCRM,oFntCur08N,,,,0)
-		
-		oPrn:Box(1320, 0105, 1440, 2250)
-		oPrn:Box(1320, 0750, 1440, 0750)
-		
-		oPrn:Box(0540, 0055, 1760, 2300)
-		
-		oPrn:Box(1820, 0055, 1910, 1520)
-		*/
-		
+		oPrn:Say(1320,0125,"CEP:",oFntCur10N,,,,0)
+		oPrn:Say(1380,0125,Transform((cAlias)->A1_CEP,"@R 99.999-999"),oFntCur10N,,,,0)
+
+		oPrn:Say(1320,0525,"Tel.:",oFntCur10N,,,,0)
+		oPrn:Say(1380,0525,(cAlias)->A1_TEL,oFntCur10N,,,,0)
+
+		oPrn:Say(1320,0925,"CNPJ/CPF:",oFntCur10N,,,,0)
+		oPrn:Say(1380,0925,Transform((cAlias)->A1_CGC,"@R 99.999-999/9999-99"),oFntCur10N,,,,0)
+
+		oPrn:Say(1320,1625,"Inscrição Estadual:",oFntCur10N,,,,0)
+		oPrn:Say(1380,1625,(cAlias)->A1_INSCR,oFntCur10N,,,,0)
+
 		oPrn:Say(1850,0450,"DISCRIMINAÇÃO",oFntCur10B,,,,0)
 			
 		oPrn:Box(1820, 1520, 1910, 1920)
