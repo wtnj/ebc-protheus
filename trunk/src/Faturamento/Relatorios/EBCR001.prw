@@ -224,26 +224,21 @@ If !(cAlias)->(EOF())
 		endif
 		
 		oPrn:Box(0600, 0105, 0690, 1805)
-		oPrn:Say(0630,0725,"FATURA/DUPLICATA",oFntCur10N,,,,0)
+		oPrn:Say(0630,0755,"FATURA/DUPLICATA",oFntCur10N,,,,0)
 		
-		oPrn:Box(0690, 0105, 0780, 1805)
-		oPrn:Box(0690, 0505, 0780, 0505)
-		oPrn:Box(0690, 0905, 0780, 0905)
-		oPrn:Box(0690, 1305, 0780, 1305)
+		oPrn:Box(0690, 0105, 0840, 1805)
+		oPrn:Box(0690, 0505, 0840, 0505)
+		oPrn:Box(0690, 0905, 0840, 0905)
+		oPrn:Box(0690, 1305, 0840, 1305)
 
 		oPrn:Say(0720,0125,"Data de Emissão:",oFntCur10N,,,,0)
 		oPrn:Say(0720,0525,"Valor R$:",oFntCur10N,,,,0)
 		oPrn:Say(0720,0925,"No. de Ordem:",oFntCur10N,,,,0)
 		oPrn:Say(0720,1325,"Data de Vencimento:",oFntCur10N,,,,0)
 		
-		oPrn:Box(0780, 0105, 0870, 1805)
-		oPrn:Box(0780, 0505, 0870, 0505)
-		oPrn:Box(0780, 0905, 0870, 0905)
-		oPrn:Box(0780, 1305, 0870, 1305)
-		
-		oPrn:Say(0810,0125,Dtoc(Stod((cAlias)->F2_EMISSAO)),oFntCur10N,,,,0)
-		oPrn:Say(0810,0525,Alltrim(Transform((cAlias)->F2_VALMERC,PesqPict("SF2","F2_VALMERC"))),oFntCur10N,,,,0)
-		oPrn:Say(0810,0925,(cAlias)->F2_DOC,oFntCur10N,,,,0)
+		oPrn:Say(0780,0125,Dtoc(Stod((cAlias)->F2_EMISSAO)),oFntCur10N,,,,0)
+		oPrn:Say(0780,0525,Alltrim(Transform((cAlias)->F2_VALMERC,PesqPict("SF2","F2_VALMERC"))),oFntCur10N,,,,0)
+		oPrn:Say(0780,0925,(cAlias)->F2_DOC,oFntCur10N,,,,0)
 		
 		cQuery := "SELECT E1_PREFIXO,E1_NUM,E1_PARCELA,E1_VENCTO,E1_VALOR,E1_SALDO,E1_IRRF,E1_CSLL,E1_COFINS,E1_PIS "+c_ent
 		cQuery += "FROM " + RetSqlName("SE1") + " SE1 "+c_ent
@@ -266,15 +261,16 @@ If !(cAlias)->(EOF())
 		
 		dbSelectarea(cAlias2)
 		If !(cAlias2)->(EOF())
-			oPrn:Say(0810,1325,Transform(Stod((cAlias2)->E1_VENCTO),"@D"),oFntCur10N,,,,0)
+			oPrn:Say(0780,1325,Transform(Stod((cAlias2)->E1_VENCTO),"@D"),oFntCur10N,,,,0)
 		Endif
 		(cAlias2)->(dbCloseArea())
 		
-		oPrn:Box(0870, 0105, 0960, 1805)
+		oPrn:Box(0840, 0105, 0990, 1805)
 		
 		cExtenso := Alltrim(Extenso((cAlias)->F2_VALMERC))
-		oPrn:Say(0900,0125,cExtenso,oFntCur07N,,,,0)
-
+		oPrn:Say(0870,0125,"Valor por Extenso:",oFntCur10N,,,,0)
+		oPrn:Say(0930,0125,cExtenso,oFntCur07N,,,,0)
+		
 		/*
 		oPrn:Box(0870, 0105, 1320, 2250)
 		
