@@ -270,6 +270,19 @@ If !(cAlias)->(EOF())
 		cExtenso := Alltrim(Extenso((cAlias)->F2_VALMERC))
 		oPrn:Say(0870,0125,"Valor por Extenso:",oFntCur10N,,,,0)
 		oPrn:Say(0930,0125,cExtenso,oFntCur07N,,,,0)
+
+		oPrn:Box(0600, 1805, 0730, 2250)
+		oPrn:Box(0730, 1805, 0860, 2250)
+		oPrn:Box(0860, 1805, 0990, 2250)
+		
+		oPrn:Say(0630,1825,"Contrato:",oFntCur08N,,,,0)
+		oPrn:Say(0690,1825,"S456/14",oFntCur10N,,,,0)
+
+		oPrn:Say(0760,1825,"Emissora:",oFntCur08N,,,,0)
+		oPrn:Say(0820,1825,"MEC FM RIO",oFntCur10N,,,,0)
+
+		oPrn:Say(0890,1825,"Resp. pelo Pagamento:",oFntCur08N,,,,0)
+		oPrn:Say(0950,1825,"Cliente",oFntCur10N,,,,0)
 		
 		/*
 		oPrn:Box(0870, 0105, 1320, 2250)
