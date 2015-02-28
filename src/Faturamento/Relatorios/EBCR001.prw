@@ -153,19 +153,28 @@ If !(cAlias)->(EOF())
 		
 		oPrn:StartPage()
 		
-		oPrn:Box(0055, 0055, 0540, 1400)
-		oPrn:Box(0055, 1400, 0540, 2300)
-		oPrn:SayBitmap(0120, 0480, "Logo_"+Substr(cFilAnt,1,2)+".jpg", 0385, 0150)
+		oPrn:Box(0055, 0055, 0540, 0480)
+		oPrn:Box(0055, 2000, 0540, 2800)
+		
+		oPrn:Box(0055, 0055, 0540, 1100)
+		oPrn:Box(0055, 1100, 0540, 2800)
+		oPrn:SayBitmap(0180, 0060, "lgrl"+Substr(cFilAnt,1,2)+".bmp", 0385, 0150)
 		dbSelectArea("SM0")
 		SM0->(dbSetOrder(1))
 		nRecno := SM0->(Recno())
 		SM0->(dbSeek(cEmpAnt+cFilAnt))
-		oPrn:Say(0360,0120,SubStr(SM0->M0_NOMECOM,1,70),oFntCur10B,,,,0)
+		oPrn:Say(0060,0540,SubStr(SM0->M0_NOMECOM,1,70),oFntCur10B,,,,0)
 		
 		cNomeEmp := SubStr(SM0->M0_NOMECOM,1,70)
+
+		oPrn:Say(0120,0540,Substr("CNPJ: "+Transform(SM0->M0_CGC,"@R 99.999.999/9999-99"),1,70),oFntCur08N,,,,0)
+		oPrn:Say(0180,0540,Substr("CF/DF: 07.507.191/001-01",1,70),oFntCur08N,,,,0)
 		
-		oPrn:Say(0420,0120,SubStr(AllTrim(SM0->M0_ENDCOB)+" "+AllTrim(SM0->M0_COMPCOB),1,70),oFntCur10N,,,,0)
-		oPrn:Say(0480,0120,Substr(AllTrim(SM0->M0_BAIRCOB)+" "+AllTrim(SM0->M0_CIDCOB)+" "+AllTrim(SM0->M0_ESTCOB)+" "+"CEP "+Transform(SM0->M0_CEPCOB,"@R 99.999-999"),1,70),oFntCur10N,,,,0)
+		oPrn:Say(0240,0540,SubStr(AllTrim(SM0->M0_ENDCOB)+" "+AllTrim(SM0->M0_COMPCOB),1,70),oFntCur10N,,,,0)
+		oPrn:Say(0300,0540,Substr(AllTrim(SM0->M0_BAIRCOB)+" "+AllTrim(SM0->M0_CIDCOB),1,70),oFntCur10N,,,,0)
+		oPrn:Say(0360,0540,Substr(AllTrim(SM0->M0_ESTCOB)+" "+"CEP "+Transform(SM0->M0_CEPCOB,"@R 99.999-999"),1,70),oFntCur10N,,,,0)
+		oPrn:Say(0420,0540,Substr("TELEFONE: "+AllTrim(SM0->M0_TEL),1,70),oFntCur10N,,,,0)
+		oPrn:Say(0480,0540,Substr("FAX: "+AllTrim(SM0->M0_FAX),1,70),oFntCur10N,,,,0)
 		SM0->(dbGoTo(nRecno))
 		
 		oPrn:Say(0060,1460,"NOTA FISCAL",oFntCur10B,,,,0)
