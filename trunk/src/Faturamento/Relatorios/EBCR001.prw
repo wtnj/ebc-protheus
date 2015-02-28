@@ -180,10 +180,8 @@ If !(cAlias)->(EOF())
 		
 		oPrn:Say(0480,1120,"Natureza da Prestação: "+cNaturOper+" Cod.: "+(cAlias)->D2_CF,oFntCur08N,,,,0)
 		
-		oPrn:Say(0180,2040,"No. ",oFntCur15B,,,,0)
+		oPrn:Say(0180,2040,"No. ",oFntCur12B,,,,0)
 		oPrn:Say(0240,2040,(cAlias)->F2_DOC,oFntCur12B,,,,0)
-		
-		//oPrn:Say(0480,1460,"DATA DA EMISSÃO: "+Dtoc(Stod((cAlias)->F2_EMISSAO)),oFntCur08B,,,,0)
 		
 		cDoc := (cAlias)->F2_DOC
 		cSerie := (cAlias)->F2_SERIE
@@ -225,19 +223,27 @@ If !(cAlias)->(EOF())
 			nQtRegAli := 1
 		endif
 		
-		oPrn:Box(0600, 0455, 0690, 0900)
-		oPrn:Box(0600, 0900, 0690, 1400)
-		oPrn:Box(0600, 1400, 0690, 2250)
+		oPrn:Box(0600, 0105, 0690, 1805)
+		oPrn:Say(0630,0725,"FATURA/DUPLICATA",oFntCur10N,,,,0)
 		
-		oPrn:Say(0630,0550,"NOTA FISCAL",oFntCur10B,,,,0)
+		oPrn:Box(0690, 0105, 0780, 1805)
+		oPrn:Box(0690, 0505, 0780, 0505)
+		oPrn:Box(0690, 0905, 0780, 0905)
+		oPrn:Box(0690, 1305, 0780, 1305)
+
+		oPrn:Say(0720,0125,"Data de Emissão:",oFntCur10N,,,,0)
+		oPrn:Say(0720,0525,"Valor R$:",oFntCur10N,,,,0)
+		oPrn:Say(0720,0925,"No. de Ordem:",oFntCur10N,,,,0)
+		oPrn:Say(0720,1325,"Data de Vencimento:",oFntCur10N,,,,0)
 		
-		oPrn:Say(0630,1070,"VALOR R$",oFntCur10B,,,,0)
-		oPrn:Say(0630,1550,"VENCIMENTO",oFntCur10B,,,,0)
-		oPrn:Box(0690, 0455, 0780, 0900)
-		oPrn:Box(0690, 0900, 0780, 1400)
-		oPrn:Box(0690, 1400, 0780, 2250)
-		oPrn:Say(0720,0550,(cAlias)->F2_DOC,oFntCur10N,,,,0)
-		oPrn:Say(0720,1070,Alltrim(Transform((cAlias)->F2_VALMERC,PesqPict("SF2","F2_VALMERC"))),oFntCur10N,,,,0)
+		oPrn:Box(0780, 0105, 0870, 1805)
+		oPrn:Box(0780, 0505, 0870, 0505)
+		oPrn:Box(0780, 0905, 0870, 0905)
+		oPrn:Box(0780, 1305, 0870, 1305)
+		
+		oPrn:Say(0810,0125,Dtoc(Stod((cAlias)->F2_EMISSAO)),oFntCur10N,,,,0)
+		oPrn:Say(0810,0525,Alltrim(Transform((cAlias)->F2_VALMERC,PesqPict("SF2","F2_VALMERC"))),oFntCur10N,,,,0)
+		oPrn:Say(0810,0925,(cAlias)->F2_DOC,oFntCur10N,,,,0)
 		
 		cQuery := "SELECT E1_PREFIXO,E1_NUM,E1_PARCELA,E1_VENCTO,E1_VALOR,E1_SALDO,E1_IRRF,E1_CSLL,E1_COFINS,E1_PIS "+c_ent
 		cQuery += "FROM " + RetSqlName("SE1") + " SE1 "+c_ent
@@ -260,65 +266,54 @@ If !(cAlias)->(EOF())
 		
 		dbSelectarea(cAlias2)
 		If !(cAlias2)->(EOF())
-			oPrn:Say(0720,1550,Transform(Stod((cAlias2)->E1_VENCTO),"@D"),oFntCur10N,,,,0)
+			oPrn:Say(0810,1325,Transform(Stod((cAlias2)->E1_VENCTO),"@D"),oFntCur10N,,,,0)
 		Endif
 		(cAlias2)->(dbCloseArea())
 		
-		oPrn:Box(0780, 0455, 1230, 2250)
+		oPrn:Box(0870, 0105, 0960, 1805)
 		
-		oPrn:Say(0810,0970,"DESTINATÁRIO",oFntCur12B,,,,0)
+		cExtenso := Alltrim(Extenso((cAlias)->F2_VALMERC))
+		oPrn:Say(0900,0125,cExtenso,oFntCur07N,,,,0)
+
+		/*
+		oPrn:Box(0870, 0105, 1320, 2250)
 		
-		oPrn:Say(0870,0470,"NOME: ",oFntCur08B,,,,0)
-		oPrn:Say(0870,0730,(cAlias)->A1_NOME,oFntCur08N,,,,0)
+		oPrn:Say(0900,0970,"DESTINATÁRIO",oFntCur12B,,,,0)
 		
-		oPrn:Say(0930,0470,"ENDEREÇO: ",oFntCur08B,,,,0)
-		oPrn:Say(0930,0730,(cAlias)->A1_END+" "+(cAlias)->A1_BAIRRO,oFntCur08N,,,,0)
+		oPrn:Say(0960,0470,"NOME: ",oFntCur08B,,,,0)
+		oPrn:Say(0960,0730,(cAlias)->A1_NOME,oFntCur08N,,,,0)
 		
-		oPrn:Say(0930,1950,"CEP: ",oFntCur08B,,,,0)
-		oPrn:Say(0930,2030,Transform((cAlias)->A1_CEP,"@R 99.999-999"),oFntCur08N,,,,0)
+		oPrn:Say(1020,0470,"ENDEREÇO: ",oFntCur08B,,,,0)
+		oPrn:Say(1020,0730,(cAlias)->A1_END+" "+(cAlias)->A1_BAIRRO,oFntCur08N,,,,0)
 		
-		oPrn:Say(0990,0470,"MUNICÍPIO: ",oFntCur08B,,,,0)
-		oPrn:Say(0990,0730,(cAlias)->A1_MUN,oFntCur08N,,,,0)
+		oPrn:Say(1020,1950,"CEP: ",oFntCur08B,,,,0)
+		oPrn:Say(1020,2030,Transform((cAlias)->A1_CEP,"@R 99.999-999"),oFntCur08N,,,,0)
 		
-		oPrn:Say(0990,1750,"ESTADO: ",oFntCur08B,,,,0)
-		oPrn:Say(0990,1880,(cAlias)->A1_EST,oFntCur08N,,,,0)
+		oPrn:Say(1080,0470,"MUNICÍPIO: ",oFntCur08B,,,,0)
+		oPrn:Say(1080,0730,(cAlias)->A1_MUN,oFntCur08N,,,,0)
 		
-		oPrn:Say(1050,0470,"PRAÇA DE PAGTO: ",oFntCur08B,,,,0)
-		oPrn:Say(1050,0730,(cAlias)->A1_EST,oFntCur08N,,,,0)
+		oPrn:Say(1080,1750,"ESTADO: ",oFntCur08B,,,,0)
+		oPrn:Say(1080,1880,(cAlias)->A1_EST,oFntCur08N,,,,0)
 		
-		oPrn:Say(1110,0470,"CNPJ: ",oFntCur08B,,,,0)
-		oPrn:Say(1110,0730,Transform((cAlias)->A1_CGC,"@R 99.999-999/9999-99"),oFntCur08N,,,,0)
+		oPrn:Say(1140,0470,"PRAÇA DE PAGTO: ",oFntCur08B,,,,0)
+		oPrn:Say(1140,0730,(cAlias)->A1_EST,oFntCur08N,,,,0)
 		
-		oPrn:Say(1170,0470,"INSC.ESTADUAL: ",oFntCur08B,,,,0)
-		oPrn:Say(1170,0730,(cAlias)->A1_INSCR,oFntCur08N,,,,0)
+		oPrn:Say(1200,0470,"CNPJ: ",oFntCur08B,,,,0)
+		oPrn:Say(1200,0730,Transform((cAlias)->A1_CGC,"@R 99.999-999/9999-99"),oFntCur08N,,,,0)
 		
-		oPrn:Say(1170,1400,"INSC.MUNICIPAL: ",oFntCur08B,,,,0)
-		oPrn:Say(1170,1670,(cAlias)->A1_INSCRM,oFntCur08N,,,,0)
+		oPrn:Say(1260,0470,"INSC.ESTADUAL: ",oFntCur08B,,,,0)
+		oPrn:Say(1260,0730,(cAlias)->A1_INSCR,oFntCur08N,,,,0)
 		
-		oPrn:Box(1230, 0455, 1440, 0750)
-		oPrn:Box(1230,0750, 1440, 2250)
+		oPrn:Say(1260,1400,"INSC.MUNICIPAL: ",oFntCur08B,,,,0)
+		oPrn:Say(1260,1670,(cAlias)->A1_INSCRM,oFntCur08N,,,,0)
 		
-		oPrn:Say(1260,0510,"VALOR",oFntCur15B,,,,0)
-		oPrn:Say(1320,0530,"POR",oFntCur15B,,,,0)
-		oPrn:Say(1380,0480,"EXTENSO",oFntCur15B,,,,0)
-		
-		cExtenso := Padr(Alltrim(Extenso((cAlias)->F2_VALMERC)),130,"*")
-		oPrn:Say(1290,0780,Substr(cExtenso,1,65),oFntCur10B,,,,0)
-		If Len(cExtenso) > 65
-			oPrn:Say(1350,0780,Substr(cExtenso,66,65),oFntCur10B,,,,0)
-		endif
-		
-		oPrn:Say(1470,0470,"DEVE(M) A " + ALLTRIM(cNomeEmp),oFntCur10N,,,,0)
-		oPrn:Say(1530,0470,"A IMPORTÂNCIA ACIMA",oFntCur10N,,,,0)
-		
-		oPrn:Say(1650,1350,"EM _______________",oFntCur10N,,,,0)
-		oPrn:Say(1650,1800,"____________________",oFntCur10N,,,,0)
-		oPrn:Say(1710,1520,"DATA",oFntCur10N,,,,0)
-		oPrn:Say(1710,1900,"ASSINATURA",oFntCur10N,,,,0)
+		oPrn:Box(1320, 0105, 1440, 2250)
+		oPrn:Box(1320, 0750, 1440, 0750)
 		
 		oPrn:Box(0540, 0055, 1760, 2300)
 		
 		oPrn:Box(1820, 0055, 1910, 1520)
+		*/
 		
 		oPrn:Say(1850,0450,"DISCRIMINAÇÃO",oFntCur10B,,,,0)
 			
