@@ -30,14 +30,12 @@ Local cAlias2    	:= GetNextAlias()
 Local cExtenso		:= ""
 Local cParcTit		:= GETMV("MV_1DUP")
 
-Local oDlg
-Local lConfirmou := .T.
-Private oMemo
 Private oArial16 := TFont():New( "Arial",, 16,,.F.,,,,.F.,.F.)
 
 Private cAlias    	:= GetNextAlias()
 Private oFntCur05n 	:= TFont():New( "Courier New" ,,05,,.F.,,,,,.F. )
 Private oFntCur06n 	:= TFont():New( "Courier New" ,,06,,.F.,,,,,.F. )
+Private oFntCur07n 	:= TFont():New( "Courier New" ,,07,,.F.,,,,,.F. )
 Private oFntCur06B 	:= TFont():New( "Courier New" ,,06,,.T.,,,,,.F. )
 Private oFntCur08n 	:= TFont():New( "Courier New" ,,08,,.F.,,,,,.F. )
 Private oFntCur08b 	:= TFont():New( "Courier New" ,,08,,.T.,,,,,.F. )
@@ -68,18 +66,6 @@ PutSX1(cPerg , "09" , "Via             ?" , "" , "" , "mv_ch9"  , "N" , 1 						
 If !Pergunte(cPerg,.T.)
 	Return
 Endif
-
-cObs := ""
-
-DEFINE DIALOG oDlg TITLE "Observações / Tipo de Nota Fiscal" FROM 0,0 TO 530,560 PIXEL
-
-oMemo := tMultiGet():New( 005, 005, {|u|if(PCount()>0, cObs := u, cObs)}, oDlg, 270, 195, oArial16,,,,, .T.,,,,,, .F. )
-
-ACTIVATE MSDIALOG oDlg ON INIT EnchoiceBar(oDlg,{|| lConfirmou := .T.,oDlg:End()},{|| lConfirmou := .F.,oDlg:End()}) CENTERED
-
-If !lConfirmou
-	Return
-EndIf 
 
 cQry := "Select F2_EMISSAO,F2_DOC,F2_SERIE,F2_VALMERC,F2_DESCONT,F2_VALIRRF,F2_VALINSS,F2_VALCOFI,F2_VALPIS,F2_VALCSLL,F2_VALISS,F2_COND,D2_TES,D2_CF,D2_ALQIRRF,D2_ALIQINS,D2_ALQCSL,D2_ALQPIS,D2_ALQCOF,D2_ALIQISS,C5_NUM,C5_CLIENTE,C5_LOJACLI,C5_MENNOTA,C5_MENPAD,A1_NOME,A1_END,A1_BAIRRO,A1_CEP,A1_MUN,A1_EST,A1_CGC,A1_INSCR,A1_INSCRM,A1_TEL,A1_FAX,A1_EMAIL,D2_COD,D2_PRCVEN,D2_TOTAL " + c_ent
 
@@ -153,49 +139,51 @@ If !(cAlias)->(EOF())
 		
 		oPrn:StartPage()
 		
-		oPrn:Box(0055, 0055, 0540, 0480)
-		oPrn:Box(0055, 2000, 0540, 2800)
+		oPrn:Box(0055, 0055, 0540, 2300)
+		oPrn:Box(0055, 0480, 0540, 0480)
+		oPrn:Box(0055, 1100, 0540, 1100)
+		oPrn:Box(0055, 2020, 0420, 2020)
 		
-		oPrn:Box(0055, 0055, 0540, 1100)
-		oPrn:Box(0055, 1100, 0540, 2800)
-		oPrn:SayBitmap(0180, 0060, "lgrl"+Substr(cFilAnt,1,2)+".bmp", 0385, 0150)
+		oPrn:SayBitmap(0240, 0060, "lgrl"+Substr(cFilAnt,1,2)+".bmp", 0385, 0150)
 		dbSelectArea("SM0")
 		SM0->(dbSetOrder(1))
 		nRecno := SM0->(Recno())
 		SM0->(dbSeek(cEmpAnt+cFilAnt))
-		oPrn:Say(0060,0540,SubStr(SM0->M0_NOMECOM,1,70),oFntCur10B,,,,0)
+		oPrn:Say(0060,0500,SubStr(SM0->M0_NOMECOM,1,70),oFntCur10N,,,,0)
 		
 		cNomeEmp := SubStr(SM0->M0_NOMECOM,1,70)
 
-		oPrn:Say(0120,0540,Substr("CNPJ: "+Transform(SM0->M0_CGC,"@R 99.999.999/9999-99"),1,70),oFntCur08N,,,,0)
-		oPrn:Say(0180,0540,Substr("CF/DF: 07.507.191/001-01",1,70),oFntCur08N,,,,0)
+		oPrn:Say(0120,0500,Substr("CNPJ: "+Transform(SM0->M0_CGC,"@R 99.999.999/9999-99"),1,70),oFntCur10N,,,,0)
+		oPrn:Say(0180,0500,Substr("CF/DF: 07.507.191/001-01",1,70),oFntCur10N,,,,0)
 		
-		oPrn:Say(0240,0540,SubStr(AllTrim(SM0->M0_ENDCOB)+" "+AllTrim(SM0->M0_COMPCOB),1,70),oFntCur10N,,,,0)
-		oPrn:Say(0300,0540,Substr(AllTrim(SM0->M0_BAIRCOB)+" "+AllTrim(SM0->M0_CIDCOB),1,70),oFntCur10N,,,,0)
-		oPrn:Say(0360,0540,Substr(AllTrim(SM0->M0_ESTCOB)+" "+"CEP "+Transform(SM0->M0_CEPCOB,"@R 99.999-999"),1,70),oFntCur10N,,,,0)
-		oPrn:Say(0420,0540,Substr("TELEFONE: "+AllTrim(SM0->M0_TEL),1,70),oFntCur10N,,,,0)
-		oPrn:Say(0480,0540,Substr("FAX: "+AllTrim(SM0->M0_FAX),1,70),oFntCur10N,,,,0)
+		oPrn:Say(0240,0500,SubStr(AllTrim(SM0->M0_ENDCOB),1,70),oFntCur08N,,,,0)
+		oPrn:Say(0300,0500,Substr(AllTrim(SM0->M0_COMPCOB)+"-"+AllTrim(SM0->M0_BAIRCOB),1,70),oFntCur08N,,,,0)
+		oPrn:Say(0360,0500,AllTrim(SM0->M0_CIDCOB)+"-"+Substr(AllTrim(SM0->M0_ESTCOB)+"-"+Transform(SM0->M0_CEPCOB,"@R 99.999-999"),1,70),oFntCur08N,,,,0)
+		oPrn:Say(0420,0500,Substr("TELEFONE: "+AllTrim(SM0->M0_TEL),1,70),oFntCur08N,,,,0)
+		oPrn:Say(0480,0500,Substr("FAX: "+AllTrim(SM0->M0_FAX),1,70),oFntCur08N,,,,0)
 		SM0->(dbGoTo(nRecno))
 		
-		oPrn:Say(0060,1460,"NOTA FISCAL",oFntCur10B,,,,0)
-		
-		oPrn:Say(0120,1460,SubStr(AllTrim(SM0->M0_ENDCOB)+" "+AllTrim(SM0->M0_COMPCOB),1,70),oFntCur08N,,,,0)
-		oPrn:Say(0180,1460,Substr(AllTrim(SM0->M0_BAIRCOB)+" "+AllTrim(SM0->M0_CIDCOB)+" "+AllTrim(SM0->M0_ESTCOB)+" "+"CEP "+Transform(SM0->M0_CEPCOB,"@R 99.999-999"),1,70),oFntCur08N,,,,0)
-		oPrn:Say(0240,1460,Substr("CNPJ: "+Transform(SM0->M0_CGC,"@R 99.999.999/9999-99"),1,70),oFntCur08N,,,,0)
-		oPrn:Say(0300,1460,Substr("INSCRIÇÃO MUNICIPAL: "+SM0->M0_INSCM,1,70),oFntCur08N,,,,0)
-		
-		oPrn:Say(0360,1860,"No. "+(cAlias)->F2_DOC,oFntCur12B,,,,0)
-		
+		oPrn:Say(0120,1180,Substr("NOTA FISCAL/FATURA DE SERVIÇO DE COMUNICAÇÃO",1,70),oFntCur08B,,,,0)
+		oPrn:Say(0180,1460,Substr("MODELO - 21",1,70),oFntCur08N,,,,0)
+		oPrn:Say(0240,1150,Substr("EMITIDA POR PROCESSAMENTO ELETRÔNICO DE DADOS - SISTEMA LASER - ",1,70),oFntCur06N,,,,0)
+		oPrn:Say(0300,1120,Substr("CONFORME AUTORIZADO PELO ATO DECLARATÓRIO No. 024/2008 GEJUC/DITRI",1,70),oFntCur06N,,,,0)
+		oPrn:Say(0360,1220,Substr("AIDF No. 134500837/2014 - Validade 05/09/2015",1,70),oFntCur07N,,,,0)
+
 		cNaturOper := ""
 		dbSelectArea("SF4")
 		SF4->(dbSetOrder(1))
 		if SF4->(dbSeek(xFilial("SF4")+(cAlias)->D2_TES))
 			cNaturOper := SF4->F4_TEXTO
 		endif
-				
-		oPrn:Say(0420,1460,"NATUREZA DA OPERAÇÃO: "+cNaturOper,oFntCur08B,,,,0)
-			
-		oPrn:Say(0480,1460,"DATA DA EMISSÃO: "+Dtoc(Stod((cAlias)->F2_EMISSAO)),oFntCur08B,,,,0)
+		
+		oPrn:Box(0420, 1100, 0420, 2300)
+		
+		oPrn:Say(0480,1120,"Natureza da Prestação: "+cNaturOper+" Cod.: "+(cAlias)->D2_CF,oFntCur08N,,,,0)
+		
+		oPrn:Say(0180,2040,"No. ",oFntCur15B,,,,0)
+		oPrn:Say(0240,2040,(cAlias)->F2_DOC,oFntCur12B,,,,0)
+		
+		//oPrn:Say(0480,1460,"DATA DA EMISSÃO: "+Dtoc(Stod((cAlias)->F2_EMISSAO)),oFntCur08B,,,,0)
 		
 		cDoc := (cAlias)->F2_DOC
 		cSerie := (cAlias)->F2_SERIE
@@ -236,8 +224,6 @@ If !(cAlias)->(EOF())
 		if nQtRegAli = 0
 			nQtRegAli := 1
 		endif
-		
-		oPrn:Say(0480,1960,"Página: "+alltrim(str(nPagina))+"/"+alltrim(str(Int(nQtRegAli/9)+iif(Mod(nQtRegAli,9)<>0,1,0))),oFntCur08B,,,,0)
 		
 		oPrn:Box(0600, 0455, 0690, 0900)
 		oPrn:Box(0600, 0900, 0690, 1400)
@@ -375,18 +361,6 @@ If !(cAlias)->(EOF())
 		lImpTot := .F.
 		if nPagina = Int(nQtRegAli/9)+iif(Mod(nQtRegAli,9)<>0,1,0)
 			lImpTot := .T.
-		endif
-		
-		if nContador+1 <= 9
-			nPagina := 0
-			For nCont := 1 to MlCount(cObs)
-				nContador += 1
-				if nContador > 9
-					Exit
-				endif
-				nLinha += 60
-				oPrn:Say(nLinha,0100,MemoLine(cObs,,nCont),oFntCur10N,,,,0)
-			next
 		endif
 		
 		oPrn:Box(1910, 0055, 2540, 1520)
