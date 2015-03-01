@@ -144,7 +144,7 @@ If !(cAlias)->(EOF())
 		oPrn:Box(0055, 1100, 0540, 1100)
 		oPrn:Box(0055, 2020, 0420, 2020)
 		
-		oPrn:SayBitmap(0240, 0060, "lgrl"+Substr(cFilAnt,1,2)+".bmp", 0385, 0150)
+		//oPrn:SayBitmap(0240, 0060, "lgrl"+Substr(cFilAnt,1,2)+".bmp", 0385, 0150)
 		dbSelectArea("SM0")
 		SM0->(dbSetOrder(1))
 		nRecno := SM0->(Recno())
