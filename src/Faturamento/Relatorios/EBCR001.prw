@@ -136,6 +136,8 @@ If !(cAlias)->(EOF())
 		nPagina += 1
 		
 		oPrn:StartPage()
+
+		oPrn:Box(0540, 0055, 1950, 2300)
 		
 		oPrn:Box(0055, 0055, 0540, 2300)
 		oPrn:Box(0055, 0480, 0540, 0480)
