@@ -67,7 +67,7 @@ If !Pergunte(cPerg,.T.)
 	Return
 Endif
 
-cQry := "Select F2_EMISSAO,F2_DOC,F2_SERIE,F2_VALMERC,F2_DESCONT,F2_VALIRRF,F2_VALINSS,F2_VALCOFI,F2_VALPIS,F2_VALCSLL,F2_VALISS,F2_COND,D2_TES,D2_CF,D2_ALQIRRF,D2_ALIQINS,D2_ALQCSL,D2_ALQPIS,D2_ALQCOF,D2_ALIQISS,C5_NUM,C5_CLIENTE,C5_LOJACLI,C5_MENNOTA,C5_MENPAD,A1_NOME,A1_END,A1_BAIRRO,A1_CEP,A1_MUN,A1_EST,A1_CGC,A1_INSCR,A1_INSCRM,A1_TEL,A1_FAX,A1_EMAIL,D2_COD,D2_PRCVEN,D2_TOTAL " + c_ent
+cQry := "Select F2_EMISSAO,F2_DOC,F2_SERIE,F2_VALMERC,F2_DESCONT,F2_VALIRRF,F2_VALINSS,F2_VALCOFI,F2_VALPIS,F2_VALCSLL,F2_VALISS,F2_COND,D2_TES,D2_CF,D2_ALQIRRF,D2_ALIQINS,D2_ALQCSL,D2_ALQPIS,D2_ALQCOF,D2_ALIQISS,C5_NUM,C5_CLIENTE,C5_LOJACLI,C5_MENNOTA,C5_MENPAD,A1_NOME,A1_END,A1_BAIRRO,A1_CEP,A1_MUN,A1_EST,A1_CGC,A1_INSCR,A1_INSCRM,A1_TEL,A1_FAX,A1_EMAIL,D2_COD,D2_QUANT,D2_PRCVEN,D2_TOTAL " + c_ent
 
 cQry += "FROM "+RetSqlName("SD2")+" SD2, "+RetSqlName("SF2")+" SF2, "+RetSqlName("SA1")+" SA1, "+RetSqlName("SC6")+" SC6, "+RetSqlName("SC5")+" SC5 " + c_ent
 
@@ -105,7 +105,7 @@ cQry += "AND SA1.D_E_L_E_T_= ' ' " + c_ent
 cQry += "AND SC6.D_E_L_E_T_= ' ' " + c_ent
 cQry += "AND SC5.D_E_L_E_T_= ' ' " + c_ent
 
-cQry += "GROUP BY F2_EMISSAO, F2_DOC, F2_SERIE,F2_VALMERC,F2_DESCONT,F2_VALIRRF,F2_VALINSS,F2_VALCOFI,F2_VALPIS,F2_VALCSLL,F2_VALISS,F2_COND,D2_TES,D2_CF,D2_ALQIRRF,D2_ALIQINS,D2_ALQCSL,D2_ALQPIS,D2_ALQCOF,D2_ALIQISS,C5_NUM,C5_CLIENTE,C5_LOJACLI,C5_MENNOTA,C5_MENPAD,A1_NOME,A1_END,A1_BAIRRO,A1_CEP,A1_MUN,A1_EST,A1_CGC,A1_INSCR,A1_INSCRM,A1_TEL,A1_FAX,A1_EMAIL,D2_COD,D2_PRCVEN,D2_TOTAL " + c_ent
+cQry += "GROUP BY F2_EMISSAO, F2_DOC, F2_SERIE,F2_VALMERC,F2_DESCONT,F2_VALIRRF,F2_VALINSS,F2_VALCOFI,F2_VALPIS,F2_VALCSLL,F2_VALISS,F2_COND,D2_TES,D2_CF,D2_ALQIRRF,D2_ALIQINS,D2_ALQCSL,D2_ALQPIS,D2_ALQCOF,D2_ALIQISS,C5_NUM,C5_CLIENTE,C5_LOJACLI,C5_MENNOTA,C5_MENPAD,A1_NOME,A1_END,A1_BAIRRO,A1_CEP,A1_MUN,A1_EST,A1_CGC,A1_INSCR,A1_INSCRM,A1_TEL,A1_FAX,A1_EMAIL,D2_COD,D2_QUANT,D2_PRCVEN,D2_TOTAL " + c_ent
 cQry += "ORDER BY F2_EMISSAO, F2_DOC, F2_SERIE " + c_ent
 
 cQry := changeQuery(cQry)
@@ -309,13 +309,50 @@ If !(cAlias)->(EOF())
 		oPrn:Say(1320,1625,"Inscrição Estadual:",oFntCur10N,,,,0)
 		oPrn:Say(1380,1625,(cAlias)->A1_INSCR,oFntCur10N,,,,0)
 
-		oPrn:Say(1850,0450,"DISCRIMINAÇÃO",oFntCur10B,,,,0)
-			
-		oPrn:Box(1820, 1520, 1910, 1920)
-		oPrn:Say(1850,1560,"VALOR UNITÁRIO",oFntCur10B,,,,0)
-		oPrn:Box(1820, 1920, 1910, 2300)
+		oPrn:Box(1440, 0105, 1590, 2250)
+		oPrn:Say(1470,0125,"Agência / Corretor:",oFntCur10N,,,,0)
+		oPrn:Say(1530,0125,"DIRETO",oFntCur10N,,,,0)
+
+		oPrn:Box(1590, 0105, 1740, 2250)
+		oPrn:Say(1620,0125,"Endereço:",oFntCur10N,,,,0)
+		oPrn:Say(1680,0125,"SCS Q.08 ED.VENÂNCIO 2000 - BLOCO B-60 - 1o.PISO INFERIOR - ASA SUL - BRASÍLIA/DF",oFntCur10N,,,,0)
+
+		oPrn:Box(1740, 0105, 1890, 2250)
+		oPrn:Box(1740, 0505, 1890, 0505)
+		oPrn:Box(1740, 0905, 1890, 0905)
+		oPrn:Box(1740, 1605, 1890, 1605)
+		oPrn:Box(1740, 1905, 1890, 1905)
 		
-		oPrn:Say(1850,1935,"VALOR",oFntCur10B,,,,0)
+		oPrn:Say(1770,0125,"CEP:",oFntCur10N,,,,0)
+		oPrn:Say(1830,0125,"70.333-900",oFntCur10N,,,,0)
+
+		oPrn:Say(1770,0525,"Tel.:",oFntCur10N,,,,0)
+		oPrn:Say(1830,0525,"3799-567",oFntCur10N,,,,0)
+
+		oPrn:Say(1770,0925,"CNPJ/CPF:",oFntCur10N,,,,0)
+		oPrn:Say(1830,0925,"09.168.704/0001-42",oFntCur10N,,,,0)
+
+		oPrn:Say(1770,1625,"% Comissão:",oFntCur10N,,,,0)
+		oPrn:Say(1830,1625,"0",oFntCur10N,,,,0)
+
+		oPrn:Say(1770,1925,"Valor R$:",oFntCur10N,,,,0)
+		oPrn:Say(1830,1925,"0,00",oFntCur10N,,,,0)
+
+		// verificar
+
+		oPrn:Box(1950, 0055, 2100, 2300)
+		oPrn:Box(1950, 0380, 2100, 0380)
+		oPrn:Box(1950, 1520, 2100, 1520)
+		
+		oPrn:Box(2025, 1520, 2025, 2300)
+		oPrn:Box(2025, 1920, 2100, 1920)
+		
+		oPrn:Say(1980,0155,"Quant.",oFntCur10N,,,,0)
+		oPrn:Say(1980,0615,"Discriminação do(s) Serviço(s)",oFntCur10N,,,,0)
+		oPrn:Say(1980,1825,"Valor R$",oFntCur10N,,,,0)
+
+		oPrn:Say(2040,1620,"Unitário",oFntCur10N,,,,0)
+		oPrn:Say(2040,2050,"Total",oFntCur10N,,,,0)
 		
 		cDoc := (cAlias)->F2_DOC
 		cSerie := (cAlias)->F2_SERIE
@@ -323,74 +360,65 @@ If !(cAlias)->(EOF())
 		cLoja := (cAlias)->C5_LOJACLI
 		nValMerc := (cAlias)->F2_VALMERC
 		nContador := 0
-		nLinha := 1940
+		nLinha := 2070
 		
 		While !(cAlias)->(EOF()) .and. alltrim((cAlias)->F2_DOC) == alltrim(cDoc) .and. alltrim((cAlias)->F2_SERIE) == alltrim(cSerie) .and. alltrim((cAlias)->C5_CLIENTE) == alltrim(cCliente) .and. alltrim((cAlias)->C5_LOJACLI) == alltrim(cLoja)
 			nContador += 1
-			if nContador > 9
+			if nContador > 15
 				Exit
 			endif
 			nLinha += 60
+			oPrn:Say(nLinha,0075,Alltrim(Transform((cAlias)->D2_QUANT,PesqPict("SD2","D2_QUANT"))),oFntCur10N,,,,0)
 			dbSelectArea("SB5")
 			SB5->(dbSetOrder(1))
 			if SB5->(dbSeek(xFilial("SB5")+(cAlias)->D2_COD))
-				oPrn:Say(nLinha,0100,SB5->B5_CEME,oFntCur10N,,,,0)
+				oPrn:Say(nLinha,0400,SB5->B5_CEME,oFntCur10N,,,,0)
 			else
 				dbSelectArea("SB1")
 				SB1->(dbSetOrder(1))
 				if SB1->(dbSeek(xFilial("SB1")+(cAlias)->D2_COD))
-					oPrn:Say(nLinha,0100,SB1->B1_DESC,oFntCur10N,,,,0)
+					oPrn:Say(nLinha,0400,SB1->B1_DESC,oFntCur10N,,,,0)
 				endif
 			endif
 			oPrn:Say(nLinha,1550,Transform((cAlias)->D2_PRCVEN,PesqPict("SD2","D2_TOTAL")),oFntCur10N,,,,0)
 			oPrn:Say(nLinha,1950,Transform((cAlias)->D2_TOTAL,PesqPict("SD2","D2_TOTAL")),oFntCur10N,,,,0)
 			(cAlias)->(dbSkip())
 		end
-		
+
 		lImpTot := .F.
 		if nPagina = Int(nQtRegAli/9)+iif(Mod(nQtRegAli,9)<>0,1,0)
 			lImpTot := .T.
 		endif
 		
-		oPrn:Box(1910, 0055, 2540, 1520)
-		oPrn:Box(1910, 1520, 2540, 1920)
-		oPrn:Box(1910, 1920, 2540, 2300)
+		oPrn:Box(2100, 0055, 3020, 2300)
+		oPrn:Box(2100, 0380, 3020, 0380)
+		oPrn:Box(2100, 1520, 3020, 1520)
+		oPrn:Box(2100, 1920, 3020, 1920)
+
+		oPrn:Box(3020, 0055, 3170, 2300)
+
+		oPrn:Box(3020, 0105, 3170, 2250)
+		oPrn:Box(3020, 0505, 3170, 0505)
+		oPrn:Box(3020, 0905, 3170, 0905)
+		oPrn:Box(3020, 1605, 3170, 1605)
 		
-		oPrn:Box(2540, 0055, 2810, 0450)
-		oPrn:Box(2540, 0450, 2810, 1520)
-		oPrn:Box(2540, 1520, 2810, 1920)
-		oPrn:Box(2540, 1920, 2810, 2300)
+		oPrn:Say(3050,0125,"Base de Cálculo do ICMS:",oFntCur06N,,,,0)
+		oPrn:Say(3110,0125,"R$ 0,00",oFntCur10N,,,,0)
+
+		oPrn:Say(3050,0525,"Alíquota:",oFntCur06N,,,,0)
+		oPrn:Say(3110,0525,"",oFntCur10N,,,,0)
+
+		oPrn:Say(3050,0925,"Valor do ICMS:",oFntCur06N,,,,0)
+		oPrn:Say(3110,0925,"R$ 0,00",oFntCur10N,,,,0)
+
+		oPrn:Say(3050,1625,"Data ou Período da Prestação do Serviço:",oFntCur06N,,,,0)
+		oPrn:Say(3110,1625,"08/12/2014 a 10/12/2014",oFntCur10N,,,,0)
 		
-		if mv_par09 = 1
-			oPrn:Say(2630,0120,"1a VIA",oFntCur15B,,,,0)
-			oPrn:Say(2690,0130,"CLIENTE",oFntCur15B,,,,0)
-		elseif mv_par09 = 2
-			oPrn:Say(2630,0120,"2a VIA",oFntCur15B,,,,0)
-			oPrn:Say(2690,0090,"CONTABILIDADE",oFntCur12B,,,,0)
-		endif
+		oPrn:Box(3170, 0055, 3320, 2300)
 		
-		oPrn:Say(2570,1620,"VALOR",oFntCur15B,,,,0)
-		oPrn:Say(2630,1580,"TOTAL DA",oFntCur15B,,,,0)
-		oPrn:Say(2690,1590,"NOTA",oFntCur15B,,,,0)
-		oPrn:Say(2750,1590,"FISCAL",oFntCur15B,,,,0)
-		
-		if lImpTot
-			oPrn:Say(2630,1950,Transform(nValMerc,PesqPict("SF2","F2_VALMERC")),oFntCur10N,,,,0)
-		endif
-		
-		oPrn:Box(2810, 0055, 2900, 0450)
-		
-		oPrn:Say(2840,0090,"NOTA FISCAL",oFntCur10B,,,,0)
-			
-		oPrn:Box(2810, 0450, 2900, 2300)
-		
-		oPrn:Say(2840,0500,"RECEBI(EMOS) DE " + ALLTRIM(cNomeEmp) + ".",oFntCur06N,,,,0)
-		
-		oPrn:Box(2900, 0055, 2990, 0450)
-		oPrn:Say(2930,0085,"No. "+cDoc,oFntCur12B,,,,0)
-		oPrn:Box(2900, 0450, 2990, 2300)
-		oPrn:Say(2930,0650,"DATA: ____/____/________",oFntCur08N,,,,0)
-		oPrn:Say(2930,1150,"ASSINATURA E CARIMBO DO CLIENTE: _________________________",oFntCur08N,,,,0)
+		oPrn:Say(3350,0155,"Reservado ao Fisco: 36B2.6553.670A.A63F.821E.5526.38FA.0539",oFntCur10N,,,,0)
+
+		oPrn:Say(3410,0155,"PROCON-DF - SCS VENANCIO 2000, BLOCO B-60, SALA 240 CEP 70.333-900 - BRASILIA/DF - TELEFONE: 3905-7826",oFntCur10N,,,,0)
 		
 		oPrn:EndPage()
 		
