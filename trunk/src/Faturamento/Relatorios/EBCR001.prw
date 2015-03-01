@@ -18,8 +18,14 @@
 ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
 */
 
-***********************
 User Function EBCR001()
+
+Processa({|| U_EBCR001A()},"Aguarde...")
+
+Return
+
+***********************
+User Function EBCR001A()
 ***********************
 
 Local aArea     	:= GetArea()
@@ -124,6 +130,8 @@ dbUseArea( .T., 'TOPCONN', TCGENQRY(,,cQry), cAlias, .F., .T.)
 Dbselectarea(cAlias)
 Dbgotop()
 
+ProcRegua((cAlias)->(RecCount()))
+
 If !(cAlias)->(EOF())
 	
 	oPrn:=TMsPrinter():New("Impressão de Nota Fiscal Gráfica")
@@ -132,6 +140,8 @@ If !(cAlias)->(EOF())
 	nPagina := 0
 	
 	While !(cAlias)->(EOF())
+
+		IncProc("Buscando Informações...")
 		
 		nPagina += 1
 		
