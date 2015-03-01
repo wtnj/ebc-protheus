@@ -51,8 +51,6 @@ Private oBrush     	:= TBrush():New(,RGB(230,230,230))
 Private cPerg       := Padr("EBCR001",10)
 Private cAlias3    	:= GetNextAlias()
 
-PRIVATE cNomeEmp    := ""                    
-
 PutSX1(cPerg , "01" , "Data De         ?" , "" , "" , "mv_ch1"  , "D" , TAMSX3("F2_EMISSAO")[1] , 0 , 0 , "G" , "", "   "	, "", "", "mv_par01" , "      " ,"","","","      " , "   " , "" , "" , "" , "" , "" , "" , "" , "" , "" , "" )
 PutSX1(cPerg , "02" , "Data Ate        ?" , "" , "" , "mv_ch2"  , "D" , TAMSX3("F2_EMISSAO")[1] , 0 , 0 , "G" , "", "   "	, "", "", "mv_par02" , "      " ,"","","","      " , "   " , "" , "" , "" , "" , "" , "" , "" , "" , "" , "" )
 PutSX1(cPerg , "03" , "Nota Fiscal De  ?" , "" , "" , "mv_ch3"  , "C" , TAMSX3("F2_DOC")[1] 	, 0 , 0 , "G" , "", "   "	, "", "", "mv_par03" , "      " ,"","","","      " , "   " , "" , "" , "" , "" , "" , "" , "" , "" , "" , "" )
@@ -151,8 +149,6 @@ If !(cAlias)->(EOF())
 		SM0->(dbSeek(cEmpAnt+cFilAnt))
 		oPrn:Say(0060,0500,SubStr(SM0->M0_NOMECOM,1,70),oFntCur10N,,,,0)
 		
-		cNomeEmp := SubStr(SM0->M0_NOMECOM,1,70)
-
 		oPrn:Say(0120,0500,Substr("CNPJ: "+Transform(SM0->M0_CGC,"@R 99.999.999/9999-99"),1,70),oFntCur10N,,,,0)
 		oPrn:Say(0180,0500,Substr("CF/DF: 07.507.191/001-01",1,70),oFntCur10N,,,,0)
 		
@@ -338,8 +334,6 @@ If !(cAlias)->(EOF())
 		oPrn:Say(1770,1925,"Valor R$:",oFntCur10N,,,,0)
 		oPrn:Say(1830,1925,"0,00",oFntCur10N,,,,0)
 
-		// verificar
-
 		oPrn:Box(1950, 0055, 2100, 2300)
 		oPrn:Box(1950, 0380, 2100, 0380)
 		oPrn:Box(1950, 1520, 2100, 1520)
@@ -396,22 +390,20 @@ If !(cAlias)->(EOF())
 		oPrn:Box(2100, 1920, 3020, 1920)
 
 		oPrn:Box(3020, 0055, 3170, 2300)
-
-		oPrn:Box(3020, 0105, 3170, 2250)
 		oPrn:Box(3020, 0505, 3170, 0505)
 		oPrn:Box(3020, 0905, 3170, 0905)
 		oPrn:Box(3020, 1605, 3170, 1605)
 		
-		oPrn:Say(3050,0125,"Base de Cálculo do ICMS:",oFntCur06N,,,,0)
-		oPrn:Say(3110,0125,"R$ 0,00",oFntCur10N,,,,0)
+		oPrn:Say(3050,0075,"Base de Cálculo do ICMS:",oFntCur08N,,,,0)
+		oPrn:Say(3110,0075,"R$ 0,00",oFntCur10N,,,,0)
 
-		oPrn:Say(3050,0525,"Alíquota:",oFntCur06N,,,,0)
+		oPrn:Say(3050,0525,"Alíquota:",oFntCur08N,,,,0)
 		oPrn:Say(3110,0525,"",oFntCur10N,,,,0)
 
-		oPrn:Say(3050,0925,"Valor do ICMS:",oFntCur06N,,,,0)
+		oPrn:Say(3050,0925,"Valor do ICMS:",oFntCur08N,,,,0)
 		oPrn:Say(3110,0925,"R$ 0,00",oFntCur10N,,,,0)
 
-		oPrn:Say(3050,1625,"Data ou Período da Prestação do Serviço:",oFntCur06N,,,,0)
+		oPrn:Say(3050,1625,"Data ou Período da Prestação do Serviço:",oFntCur08N,,,,0)
 		oPrn:Say(3110,1625,"08/12/2014 a 10/12/2014",oFntCur10N,,,,0)
 		
 		oPrn:Box(3170, 0055, 3320, 2300)
